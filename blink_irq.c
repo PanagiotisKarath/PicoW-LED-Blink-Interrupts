@@ -5,14 +5,18 @@
 #define BUTTON_PIN 15
 #define LED_PIN 16
 
-void gpio_callback(uint gpio, uint32_t events){
+volatile bool button_pressed = false;
+
+void turn_on(){
+    button_pressed = false;
     printf("\nInterrupt");
-    if(gpio_get(LED_PIN) == 0){
-        gpio_put(LED_PIN, 1);
-    }
-    else {
-        gpio_put(LED_PIN, 0);
-    }
+    gpio_put(LED_PIN, 1);
+    sleep_ms(500);
+    gpio_put(LED_PIN, 0);
+}
+
+void gpio_callback(uint gpio, uint32_t events){
+    button_pressed = true;
 }
 
 int main(){
@@ -29,6 +33,9 @@ int main(){
     gpio_set_irq_enabled_with_callback(BUTTON_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_callback);
 
     while(1){
+        if (button_pressed == true){
+            turn_on();
+        }
         printf("\nHello!");
         sleep_ms(1000);
     }
