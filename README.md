@@ -15,5 +15,10 @@ When the button is pressed GPIO 15 is grounded and the interupt service routine(
 I also created a branch called "flag" which modifies the program. When the button is pressed now, a flag is raised that the main function sees and calls a function to turn the LED on for half a second. This method does not toggle the LED state, it makes it blink.
 ## Images
 An image of the breadboard layout is presented below.
-![Breadboard layout](irqimg.jpg)
+![Breadboard layout](images/irqimg.jpg)
 
+## Binaries folder
+In case you are not interested in building the project and only want to load the .elf or .uf2 files on your pico, I included a "binaries" folder containing only those two files.
+
+## Similar projects to this one
+This projects builds upon the simpler concept of polling, which achieves worse CPU utlization but is necessary to understand the basic logic behind this project. I recommend checking out this simpler implementation [here](https://github.com/PanagiotisKarath/PicoW-LED-Blink-Polling).
